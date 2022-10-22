@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
+import '../../bloc/bloc_comic_provider.dart';
+
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //final comicBloc = Provider.of<ComicsAPI>(context);
+    final comicBloc = Provider.of<ComicBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Title app bar'),
+        title: const Center(
+          child: Text('Comics!!'),
         ),
         elevation: 0,
         actions: <Widget>[
-          IconButton(onPressed: () {}, icon: Icon(Icons.search))
+          IconButton(onPressed: () {
+            //comicBloc.loadComics();
+            print(comicBloc.comics[0]);
+          }, icon: Icon(Icons.search))
         ],
       ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
-          CardSwiper(),
-          CardSlider(),
+          CardSwiper(comics: comicBloc.comics),
+          CardSlider(comics: comicBloc.comics, title: 'Comics'),
         ]),
       ),
     );

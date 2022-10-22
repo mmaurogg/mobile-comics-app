@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../Comic/ui/screens/screens.dart';
 
 class AppRoutes{
-  static const initialRoute = 'favorites';
+  static const initialRoute = 'home';
 
   static Map<String, Widget Function(BuildContext)> routes = {
     'home': (_) => HomeScreen(),

@@ -2,11 +2,11 @@ import 'package:comic_app/src/Comic/model/comic.dart';
 import 'package:flutter/material.dart';
 
 class CardSlider extends StatefulWidget {
-  final List<ComicModel>? comics;
-  final String? title;
+  final List<ComicModel> comics;
+  final String title;
   final Function? onNextPage;
 
-  const CardSlider({super.key, this.comics, this.title, this.onNextPage});
+  const CardSlider({super.key, required this.comics, required this.title, this.onNextPage});
 
   @override
   State<CardSlider> createState() => _CardSliderState();
@@ -55,10 +55,10 @@ class _CardSliderState extends State<CardSlider> {
             child: ListView.builder(
               controller: scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              //itemCount: widget.comics.length,
-              //itemBuilder: (_, index) => _ComicPoster(comic: widget.comics[index], heroId: '${widget.title}-$index-${widget.comics[index].id}'),
-              itemBuilder: (_, index) => _ComicPoster(),
+              //itemCount: 10,
+              itemCount: widget.comics.length,
+              itemBuilder: (_, index) => _ComicPoster(comic: widget.comics[index], heroId: '${widget.title}-$index-${widget.comics[index].id}'),
+              //itemBuilder: (_, index) => _ComicPoster(),
             ),
           ),
         ],
@@ -68,17 +68,20 @@ class _CardSliderState extends State<CardSlider> {
 }
 
 class _ComicPoster extends StatelessWidget {
-  /*
+
   final ComicModel comic;
-  final String id;
+  final String heroId;
 
-  const _ComicPoster({super.key, required this.comic, required this.id});
+  const _ComicPoster({super.key, required this.comic, required this.heroId});
 
-
-   */
   @override
   Widget build(BuildContext context) {
-    //comic.id = id;
+    comic.heroId = heroId;
+
+    final urlImage =
+        '${comic.thumbnail.path}/standard_small.${comic.thumbnail.extension}';
+
+    print(urlImage);
 
     return Container(
       width: 130,
@@ -95,7 +98,7 @@ class _ComicPoster extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
                   placeholder: AssetImage('assets/img/no-image.png'),
-                  image: NetworkImage('https://via.placeholder.com/300x400'),
+                  image: NetworkImage(urlImage),
                   width: 130,
                   height: 190,
                   fit: BoxFit.cover,
