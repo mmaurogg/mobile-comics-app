@@ -1,7 +1,9 @@
-import 'package:comic_app/src/Comic/ui/screens/home_comics.dart';
-import 'package:comic_app/src/User/ui/screens/favorites_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'package:comic_app/src/Comic/ui/screens/home_screen.dart';
+import 'package:comic_app/src/Comic/ui/screens/favorites_screen.dart';
+
 
 class ComicsApp extends StatelessWidget {
   @override
@@ -11,13 +13,13 @@ class ComicsApp extends StatelessWidget {
         tabBar: CupertinoTabBar(
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.indigo),
-              activeIcon: Icon(Icons.home, color: Colors.blue),
+              icon: Icon(Icons.temple_buddhist_outlined, color: Colors.redAccent),
+              activeIcon: Icon(Icons.temple_buddhist, color: Colors.red),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star_border, color: Colors.indigo),
-              activeIcon: Icon(Icons.star, color: Colors.blue),
+              icon: Icon(Icons.star_border, color: Colors.redAccent),
+              activeIcon: Icon(Icons.star, color: Colors.red),
               label: "",
             ),
           ],
@@ -27,7 +29,7 @@ class ComicsApp extends StatelessWidget {
           switch (index) {
             case 0:
               return CupertinoTabView(
-                builder: (BuildContext context) => HomeComics(),
+                builder: (BuildContext context) => HomeScreen(),
               );
             case 1:
               return CupertinoTabView(
@@ -35,7 +37,7 @@ class ComicsApp extends StatelessWidget {
               );
             default:
               return CupertinoTabView(
-                builder: (BuildContext context) => HomeComics(),
+                builder: (BuildContext context) => HomeScreen(),
               );
           }
         },

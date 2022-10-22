@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class HomeComics extends StatelessWidget {
+class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Hola home'),
+      child: Center(
+          child: Text('Hola Favorites')),
     );
   }
 }
