@@ -30,14 +30,12 @@ class CardSwiper extends StatelessWidget {
         itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.4,
         itemBuilder: (_, index) {
-          final comic = comics[index];
 
+          final comic = comics[index];
           final urlImage =
           '${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}';
-
           comic.heroId = 'swiper-${comic.id}';
 
-          print(urlImage);
 
           return GestureDetector(
             onTap: () =>

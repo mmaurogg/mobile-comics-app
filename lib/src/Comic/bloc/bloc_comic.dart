@@ -9,14 +9,16 @@ class ComicBloc extends ChangeNotifier {
 
    List<ComicModel> comics = [];
 
-
   ComicBloc(){
-    this.loadComics();
+    loadComics();
   }
   //Casos de uso
 
   //1. Obtener todos los comics de la API
   Future<List<ComicModel>> loadComics() async {
+
+    print('hola loadComics');
+
     _comicRepository.getComics()
         .then((comicsResponse) {
           comics = comicsResponse;
@@ -24,6 +26,16 @@ class ComicBloc extends ChangeNotifier {
     });
 
     return comics;
+  }
+
+  //2. Listar siguientes 20 resultados
+  loadNextComics() {
+    print('hola loadNextComics');
+    _comicRepository.getNextComics()
+        .then((comicsResponse) {
+          comics = [...comics, ...comicsResponse];
+          notifyListeners();
+        });
   }
 
 

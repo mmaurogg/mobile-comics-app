@@ -35,7 +35,7 @@ class ComicModel {
 
   int id;
   int digitalId;
-  Title? title;
+  String? title;
   int issueNumber;
   String? variantDescription;
   String? description;
@@ -73,7 +73,7 @@ class ComicModel {
   factory ComicModel.fromMap(Map<String, dynamic> json) => ComicModel(
         id: json["id"],
         digitalId: json["digitalId"],
-        title: titleValues.map[json["title"]],
+        title: json["title"],
         issueNumber: json["issueNumber"],
         variantDescription: json["variantDescription"],
         description: json["description"],
@@ -107,7 +107,7 @@ class ComicModel {
   Map<String, dynamic> toMap() => {
         "id": id,
         "digitalId": digitalId,
-        "title": titleValues.reverse[title],
+        "title": title,
         "issueNumber": issueNumber,
         "variantDescription": variantDescription,
         "description": description,
@@ -248,6 +248,11 @@ class Price {
         "type": type,
         "price": price,
       };
+
+  @override
+  String toString() {
+    return 'Price: $price';
+  }
 }
 
 class Series {
@@ -257,7 +262,7 @@ class Series {
   });
 
   String? resourceUri;
-  Title? name;
+  String? name;
 
   factory Series.fromJson(String str) => Series.fromMap(json.decode(str));
 
@@ -265,21 +270,16 @@ class Series {
 
   factory Series.fromMap(Map<String, dynamic> json) => Series(
         resourceUri: json["resourceURI"],
-        name: titleValues.map[json["name"]],
+        name: json["name"],
       );
 
   Map<String, dynamic> toMap() => {
         "resourceURI": resourceUri,
-        "name": titleValues.reverse[name],
+        "name": name,
       };
 }
 
-enum Title { MARVEL_PREVIEWS_2017_PRESENT, MARVEL_PREVIEWS_2017 }
 
-final titleValues = EnumValues({
-  "Marvel Previews (2017)": Title.MARVEL_PREVIEWS_2017,
-  "Marvel Previews (2017 - Present)": Title.MARVEL_PREVIEWS_2017_PRESENT
-});
 
 class Thumbnail {
   Thumbnail({

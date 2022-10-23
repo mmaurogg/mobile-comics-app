@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../bloc/bloc_comic_provider.dart';
+import '../../bloc/bloc_comic.dart';
 
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final comicBloc = Provider.of<ComicsAPI>(context);
     final comicBloc = Provider.of<ComicBloc>(context);
 
     return Scaffold(
@@ -27,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           CardSwiper(comics: comicBloc.comics),
-          CardSlider(comics: comicBloc.comics, title: 'Comics'),
+          CardSlider(comics: comicBloc.comics, title: 'Comics', onNextPage: comicBloc.loadNextComics),
         ]),
       ),
     );

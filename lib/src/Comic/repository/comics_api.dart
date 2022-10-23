@@ -13,28 +13,41 @@ class ComicsAPI {
   String ts = '1';
   String apiKey = 'd9aea301510df01e0a3ef3b23bf280d1';
   String privateKey = 'ddf63bc04df37facf75bd99713d19954b01b3211';
-  int _curretpage = 0;
+  int _currentpage = 0;
 
   ComicsAPI() {
   }
 
-  Future getComics() async {
+  Future <String> _getJsonData(String endPoint, [int page = 0]) async {
     var hash = md5
         .convert(
         utf8.encode(ts) + utf8.encode(privateKey) + utf8.encode(apiKey))
         .toString();
-
-    final url = Uri.https(_baseUrl, _endPoint, {
+    final url = Uri.https(_baseUrl, endPoint, {
       'ts': ts,
       'apikey': apiKey,
       'hash': hash,
-      'offset': _curretpage.toString()
+      'offset': page.toString()
     });
-
     final resp = await http.get(url);
-    final comicResponse = WarpComicResponse.fromJson(resp.body);
+    return resp.body;
+  }
 
-    //notifyListeners();
+  Future getComics() async {
+    final jsonData = await _getJsonData(_endPoint, _currentpage);
+    final comicResponse = WarpComicResponse.fromJson(jsonData);
     return comicResponse.data.results;
   }
+
+  getNextComics() async {
+    _currentpage ++;
+    final jsonData = await _getJsonData(_endPoint, _currentpage);
+    final nextComicsResponse = WarpComicResponse.fromJson(jsonData);
+
+    return nextComicsResponse.data.results;
+  }
+
+
+
+
 }

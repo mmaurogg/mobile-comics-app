@@ -39,10 +39,15 @@ dependencies:
   card_swiper: ^2.0.4
   http: ^0.13.5
   crypto: ^3.0.2
-
-  generic_bloc_provider: ^2.1.1
-
   provider: ^6.0.4
+
+  firebase_auth: ^3.3.4
+  google_sign_in: ^5.4.2
+  firebase_storage: ^10.3.9
+  cloud_firestore: ^3.4.9
+  firebase_core: ^1.23.0
+
+
 
 dev_dependencies:
   flutter_test:

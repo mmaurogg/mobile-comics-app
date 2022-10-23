@@ -5,9 +5,9 @@ class ComicRepository {
 
   final _comicAPI = ComicsAPI();
 
-  Future<dynamic> getComics() async {
-    return await _comicAPI.getComics();
-  }
+  Future<dynamic> getComics() async => await _comicAPI.getComics();
+
+  getNextComics() => _comicAPI.getNextComics();
 
 
 }

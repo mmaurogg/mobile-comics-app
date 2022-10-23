@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CardSlider extends StatefulWidget {
   final List<ComicModel> comics;
   final String title;
-  final Function? onNextPage;
+  final dynamic? onNextPage;
 
   const CardSlider({super.key, required this.comics, required this.title, this.onNextPage});
 
@@ -19,16 +19,16 @@ class _CardSliderState extends State<CardSlider> {
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      /*
+
+
       if(scrollController.position.pixels >= scrollController.position.maxScrollExtent - 500){
         widget.onNextPage();
       }
 
-       */
+
     });
   }
 
-  //El dispose va a lo ultimo
   @override
   void dispose() {
     super.dispose();
@@ -44,10 +44,11 @@ class _CardSliderState extends State<CardSlider> {
         children: [
           if (widget.title != null)
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(widget.title!,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                    widget.title,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
           SizedBox(
             height: 10,
           ),
@@ -57,7 +58,7 @@ class _CardSliderState extends State<CardSlider> {
               scrollDirection: Axis.horizontal,
               //itemCount: 10,
               itemCount: widget.comics.length,
-              itemBuilder: (_, index) => _ComicPoster(comic: widget.comics[index], heroId: '${widget.title}-$index-${widget.comics[index].id}'),
+              itemBuilder: (_, index) => _ComicPoster(comic: widget.comics[index], heroId: '${widget.title.toString()}-$index-${widget.comics[index].id}'),
               //itemBuilder: (_, index) => _ComicPoster(),
             ),
           ),
@@ -86,18 +87,18 @@ class _ComicPoster extends StatelessWidget {
     return Container(
       width: 130,
       height: 190,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           GestureDetector(
             onTap: () =>
-                Navigator.pushNamed(context, 'details', arguments: 'comic'),
+                Navigator.pushNamed(context, 'details', arguments: comic),
             child: Hero(
-              tag: 'comic.id!',
+              tag: comic.id,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
-                  placeholder: AssetImage('assets/img/no-image.png'),
+                  placeholder: const AssetImage('assets/img/no-image.png'),
                   image: NetworkImage(urlImage),
                   width: 130,
                   height: 190,
@@ -110,7 +111,7 @@ class _ComicPoster extends StatelessWidget {
             height: 5,
           ),
           Text(
-            "Titulo comic",
+            comic.title.toString(),
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             textAlign: TextAlign.center,
