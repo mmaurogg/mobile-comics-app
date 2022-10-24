@@ -31,6 +31,9 @@ class DetailsScreen extends StatelessWidget {
                 color: AppTheme.primary,
                 onTap: () {
                   userBloc.addFavorite(comic);
+
+                  AlertNotification(context, 'Exito', '${comic.title} se agregó con exito');
+
                 },
               ),
 

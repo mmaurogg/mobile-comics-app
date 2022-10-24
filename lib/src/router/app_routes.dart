@@ -1,4 +1,3 @@
-import 'package:comic_app/comics_app.dart';
 import 'package:comic_app/src/User/ui/screens/sign_in_screen.dart';
 import 'package:comic_app/tabs_comics.dart';
 import 'package:flutter/material.dart';

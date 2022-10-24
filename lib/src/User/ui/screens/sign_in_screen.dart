@@ -1,12 +1,8 @@
-import 'package:comic_app/comics_app.dart';
-import 'package:comic_app/src/Comic/ui/screens/home_screen.dart';
 import 'package:comic_app/src/widgets/button_blue.dart';
 import 'package:comic_app/tabs_comics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../router/app_routes.dart';
-import '../../../themes/app_theme.dart';
 import '../../../widgets/gradiente_back.dart';
 import '../../bloc/bloc_user.dart';
 import '../../model/user.dart';

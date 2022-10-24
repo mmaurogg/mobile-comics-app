@@ -65,6 +65,7 @@ class UserBloc extends ChangeNotifier {
       print(element.title);
     },);
 
+
   }
 
   //5. Listar favoritos

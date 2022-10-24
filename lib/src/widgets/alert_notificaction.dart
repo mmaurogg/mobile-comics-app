@@ -15,16 +15,18 @@ void AlertNotification(BuildContext context, String title, String textBody) {
             children: [
               Text(textBody),
               SizedBox(height: 10),
-              FlutterLogo(size: 100)
+              Icon(Icons.thumb_up)
             ],
           ),
 
-          // tambien puedo defnir otras acciones con actions
+          /*
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text('ok'))
           ],
+
+           */
         );
       });
 }

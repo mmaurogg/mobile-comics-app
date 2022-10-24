@@ -1,5 +1,5 @@
 import 'package:comic_app/src/Comic/model/comic.dart';
-import 'package:comic_app/src/widgets/basic_list.dart';
+import 'package:comic_app/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,8 +50,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     heroId: '$index-${userBloc.favoriteComics[index].id}'),
                 GestureDetector(
                   onHorizontalDragStart: (details) {},
-                  onTap: () => userBloc.deleteFavorite(
-                      userBloc.favoriteComics[index].id.toString()),
+                  onTap: () {
+                    userBloc.deleteFavorite(userBloc.favoriteComics[index].id.toString());
+                    AlertNotification(context, 'Exito!', '${userBloc.favoriteComics[index].title} se eliminó con éxito');
+                  },
                   child: const Icon(Icons.delete_forever),
                 ),
               ],
