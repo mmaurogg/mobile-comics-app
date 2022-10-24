@@ -1,16 +1,15 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/user.dart';
 
 class CloudFirestoreAPI{
 
-  final String USERS = "users";
-
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final CollectionReference dbUsers = FirebaseFirestore.instance.collection("users");
 
   Future<void> updateUserData(UserModel user) async{
-    CollectionReference users = _db.collection(USERS);
-    DocumentReference ref = users.doc(user.uid);
+    DocumentReference ref = dbUsers.doc(user.uid);
 
     return ref.set({
       'uid': user.uid,
@@ -20,5 +19,12 @@ class CloudFirestoreAPI{
       'myFavoriteComics': user.myFavoriteComics,
       'lastSignIn': DateTime.now()
     }, SetOptions(merge: true));
+  }
+
+  Future getUserData( String uid ) async{
+    final resp = await dbUsers.doc(uid).get();
+
+    return resp.data();
+
   }
 }

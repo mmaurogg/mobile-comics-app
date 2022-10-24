@@ -1,12 +1,21 @@
+import 'package:comic_app/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:comic_app/src/Comic/model/models.dart';
 import 'package:comic_app/src/themes/app_theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../../User/bloc/bloc_user.dart';
 
 
 class DetailsScreen extends StatelessWidget {
+
+  late UserBloc userBloc ;
+
   @override
   Widget build(BuildContext context) {
+    userBloc = Provider.of<UserBloc>(context);
+
     final ComicModel comic = ModalRoute.of(context)!.settings.arguments as ComicModel;
 
     return Scaffold(
@@ -16,6 +25,16 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               _PosterAndTitle( comic ),
+
+              ButtonGeneric(
+                buttonText: 'Agregar a favoritos',
+                color: AppTheme.primary,
+                onTap: () {
+                  userBloc.addFavorite(comic);
+                },
+
+              ),
+
               _Overview( comic ),
               //CardSlider(),
             ]),
@@ -126,7 +145,8 @@ class _PosterAndTitle extends StatelessWidget {
                       style: textTheme.caption,
                     )
                   ],
-                )
+                ),
+
               ],
             ),
           ),

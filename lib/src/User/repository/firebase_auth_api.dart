@@ -10,12 +10,10 @@ class FirebaseAuthAPI {
   Future<UserCredential> signIn() async {
 
     GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-    late UserCredential user;
 
     if(googleSignInAccount != null){
       GoogleSignInAuthentication? gSA = await googleSignInAccount.authentication;
 
-      //ya se autenticó con google, ahora sigue con firebase
       UserCredential user = await _auth.signInWithCredential(
           GoogleAuthProvider.credential( idToken: gSA.idToken, accessToken: gSA.accessToken)
       );

@@ -78,11 +78,8 @@ class _ComicPoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     comic.heroId = heroId;
-
     final urlImage =
         '${comic.thumbnail.path}/standard_small.${comic.thumbnail.extension}';
-
-    print(urlImage);
 
     return Container(
       width: 130,

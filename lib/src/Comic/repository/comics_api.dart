@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:comic_app/src/Comic/model/comic.dart';
 
 class ComicsAPI {
   final String _baseUrl = 'gateway.marvel.com';

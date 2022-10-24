@@ -1,7 +1,11 @@
+import 'package:comic_app/comics_app.dart';
+import 'package:comic_app/src/Comic/ui/screens/home_screen.dart';
 import 'package:comic_app/src/widgets/button_blue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../router/app_routes.dart';
+import '../../../themes/app_theme.dart';
 import '../../../widgets/gradiente_back.dart';
 import '../../bloc/bloc_user.dart';
 import '../../model/user.dart';
@@ -32,7 +36,14 @@ class _SignInScreen extends State<SignInScreen>{
         if( !snapshot.hasData || snapshot.hasError ){
           return signInGoogleUI();
         } else {
-          return TripsAppCupertino();
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Comics App',
+            theme: AppTheme.ligthTheme,
+            initialRoute: AppRoutes.initialRoute,
+            routes: AppRoutes.routes,
+            onGenerateRoute: AppRoutes.onGenerateRoute,
+          );
         }
       },
     );
@@ -48,9 +59,9 @@ class _SignInScreen extends State<SignInScreen>{
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text("Welcome to travel App",
+                const Text("Welcome to Comics App",
                   style: TextStyle(
-                      fontSize: 37.0,,
+                      fontSize: 37.0,
                       color: Colors.white,
                       fontWeight: FontWeight.bold
                   ),
@@ -60,16 +71,23 @@ class _SignInScreen extends State<SignInScreen>{
                   text: "Login with Gmail",
                   width: 300.0,
                   height: 50.0,
-                  //onPressed: signIn,
                   onPressed: (){
-                    userBloc.signOut();
+                    //userBloc.signOut();
+                    print('sig in');
                     userBloc.signIn().then( (dynamic user) {
+                      print('Proceso asincrono');
+
+                      userBloc.getUserData(userBloc.idUserActivate);
+
                       userBloc.updateUserData(UserModel(
-                          uid: user.uid,
-                          name: user.displayName,
-                          photoURL: user.photoURL,
-                          email: user.email
+                          uid: user.user.uid,
+                          name: user.user.displayName,
+                          photoURL: user.user.photoURL,
+                          email: user.user.email,
+                          myFavoriteComics: [],
                       ));
+
+
                     });
 
                   },

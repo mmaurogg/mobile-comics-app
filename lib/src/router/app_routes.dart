@@ -1,3 +1,4 @@
+import 'package:comic_app/comics_app.dart';
 import 'package:flutter/material.dart';
 
 import '../Comic/ui/screens/screens.dart';
@@ -12,7 +13,7 @@ class AppRoutes{
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    return MaterialPageRoute(builder: ((context) => HomeScreen()));
+    return MaterialPageRoute(builder: ((context) => ComicsApp()));
   }
 }
 

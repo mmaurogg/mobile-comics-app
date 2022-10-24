@@ -7,6 +7,8 @@ class CloudFirestoreRepository {
 
   void updateUserDataFirestore(UserModel user) async => _cloudFirestoreAPI.updateUserData(user);
 
+  getUserDataFirestore(String uid ) async => _cloudFirestoreAPI.getUserData(uid);
+
 
 
 }
