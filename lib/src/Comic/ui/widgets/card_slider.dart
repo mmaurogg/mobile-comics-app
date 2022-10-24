@@ -18,15 +18,14 @@ class _CardSliderState extends State<CardSlider> {
   @override
   void initState() {
     super.initState();
+
     scrollController.addListener(() {
-
-
       if(scrollController.position.pixels >= scrollController.position.maxScrollExtent - 500){
         widget.onNextPage();
+        setState(() {});
       }
-
-
     });
+
   }
 
   @override
@@ -79,7 +78,7 @@ class _ComicPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     comic.heroId = heroId;
     final urlImage =
-        '${comic.thumbnail.path}/standard_small.${comic.thumbnail.extension}';
+        '${comic.thumbnail.path}/portrait_medium.${comic.thumbnail.extension}';
 
     return Container(
       width: 130,

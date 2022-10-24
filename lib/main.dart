@@ -42,12 +42,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Comics App',
         theme: AppTheme.ligthTheme,
-        home: SignInScreen(),
-        /*
+        //home: SignInScreen();
         initialRoute: AppRoutes.initialRoute,
         routes: AppRoutes.routes,
         onGenerateRoute: AppRoutes.onGenerateRoute,
-         */
       );
   }
 

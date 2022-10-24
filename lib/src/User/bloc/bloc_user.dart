@@ -15,11 +15,11 @@ class UserBloc extends ChangeNotifier {
   Stream<User?> streeamFirebase = FirebaseAuth.instance.authStateChanges();
 
   String idUserActivate = '';
-  UserModel userActive = {} as UserModel;
+  UserModel? userActive;
 
   Stream<User?> get authStatus => streeamFirebase;
 
-  //Casos de uso (el block contiene la logica del negocio)
+  //Casos de uso
 
   //1. SignIn a la palicación con Google
   Future<UserCredential> signIn() => _authRepository.signInFirebase()
@@ -31,7 +31,7 @@ class UserBloc extends ChangeNotifier {
   //2. SignOut de la aplicación
   signOut() {
     idUserActivate = '';
-    //userActive = null;
+    userActive = null;
     _authRepository.signOut();
   }
 
@@ -40,21 +40,44 @@ class UserBloc extends ChangeNotifier {
     return _cloudFirestoreRepository.updateUserDataFirestore(user);
   }
 
-  //4. agregar comic a favorito
+  //4. Agregar comic a favorito
   addFavorite( ComicModel comic){
     if(userActive == null){
       getUserData(idUserActivate);
     }
     userActive!.addFavorite(comic);
+    updateUserData(userActive!);
+    notifyListeners();
 
+    //TODO: borrar
     userActive!.myFavoriteComics!.forEach((element) {
       print(element.title);
     },);
 
-    updateUserData(userActive!);
-
-    notifyListeners();
   }
+
+  //5. Listar favoritos
+  get favoriteComics {
+    if(userActive == null){
+      getUserData(idUserActivate);
+    }
+    return userActive!.favoriteComics;
+  }
+
+  //6. Eliminar de favotiros
+  deleteFavorite( String idComic ){
+    if(userActive == null){
+      getUserData(idUserActivate);
+    }
+    print('Eliminando favorito');
+    userActive!.deleteFavorite(idComic);
+    updateUserData(userActive!);
+    notifyListeners();
+
+
+  }
+
+  // 6. Compartir comic
 
 
 
@@ -63,19 +86,8 @@ class UserBloc extends ChangeNotifier {
   // cargar usuario
   getUserData( String uid  ) => _cloudFirestoreRepository.getUserDataFirestore(uid)
       .then((userResponse) {
-
-      print('Hola get user');
-
-        UserModel userTemp = UserModel(
-            uid: userResponse['uid'],
-            name: userResponse['name'],
-            photoURL: userResponse['photoURL'],
-            email: userResponse['email'],
-            myFavoriteComics: userResponse['myFavoriteComics']
-        );
-
-        userActive = userTemp;
-
+       UserModel userTemp = UserModel.fromMap(userResponse);
+       userActive = userTemp;
         return userResponse;
       });
 

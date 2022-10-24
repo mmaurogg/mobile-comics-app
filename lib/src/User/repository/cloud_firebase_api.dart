@@ -10,21 +10,19 @@ class CloudFirestoreAPI{
 
   Future<void> updateUserData(UserModel user) async{
     DocumentReference ref = dbUsers.doc(user.uid);
-
+    
     return ref.set({
       'uid': user.uid,
       'name': user.name,
       'email': user.email,
       'photoURL': user.photoURL,
-      'myFavoriteComics': user.myFavoriteComics,
+      'myFavoriteComics': List<dynamic>.from(user.myFavoriteComics!.map((x) => x.toMap())) ,
       'lastSignIn': DateTime.now()
     }, SetOptions(merge: true));
   }
 
   Future getUserData( String uid ) async{
     final resp = await dbUsers.doc(uid).get();
-
     return resp.data();
-
   }
 }

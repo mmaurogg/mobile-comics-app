@@ -1,4 +1,5 @@
 import 'package:comic_app/src/User/model/user.dart';
+import 'package:comic_app/src/widgets/basic_list.dart';
 import 'package:flutter/material.dart';
 import '../../../User/bloc/bloc_user.dart';
 import '../widgets/widgets.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text('Comics!'),
+          child: Text('Comics'),
         ),
         elevation: 0,
         actions: <Widget>[
@@ -26,6 +27,8 @@ class HomeScreen extends StatelessWidget {
 
                 print(userBloc.idUserActivate);
                 print(userBloc.userActive);
+
+                Navigator.pushNamed(context, 'favorites');
 
                 print('listo');
               },
@@ -42,6 +45,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(children: <Widget>[
           CardSwiper(comics: comicBloc.comics),
           CardSlider(comics: comicBloc.comics, title: 'Comics', onNextPage: comicBloc.loadNextComics),
+          //BasicList(comics: comicBloc.comics, title: 'Comics', onNextPage: comicBloc.loadNextComics)
         ]),
       ),
     );

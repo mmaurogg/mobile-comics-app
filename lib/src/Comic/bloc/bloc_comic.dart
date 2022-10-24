@@ -33,7 +33,7 @@ class ComicBloc extends ChangeNotifier {
     print('hola loadNextComics');
     _comicRepository.getNextComics()
         .then((comicsResponse) {
-          comics = [...comics, ...comicsResponse];
+          comics.addAll(comicsResponse);
           notifyListeners();
         });
   }

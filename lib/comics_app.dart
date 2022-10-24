@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:comic_app/src/Comic/ui/screens/home_screen.dart';
-import 'package:comic_app/src/Comic/ui/screens/favorites_screen.dart';
+import 'package:comic_app/src/User/ui/screens/favorites_screen.dart';
 
 
 class ComicsApp extends StatelessWidget {

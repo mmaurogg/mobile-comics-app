@@ -7,7 +7,7 @@ class UserModel {
   final String name;
   final String email;
   final String photoURL;
-  List<dynamic>? myFavoriteComics;
+  List<ComicModel>? myFavoriteComics;
 
   UserModel(
       {Key? key,
@@ -21,6 +21,8 @@ class UserModel {
   factory UserModel.fromJson(String str) =>
       UserModel.fromMap(json.decode(str));
 
+  String toJson() => json.encode(toMap());
+
   factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
         uid: json["uid"],
         name: json["name"],
@@ -29,12 +31,27 @@ class UserModel {
         myFavoriteComics: List<ComicModel>.from(json["myFavoriteComics"].map((x) => ComicModel.fromMap(x))),
   );
 
+  Map<String, dynamic> toMap() => {
+    "uid": uid,
+    "name": name,
+    "email": email,
+    "photoURL": photoURL,
+    "myFavoriteComics": List<dynamic>.from(myFavoriteComics!.map((x) => x.toMap()))
+  };
+
+  get favoriteComics {
+    return myFavoriteComics;
+  }
 
 
   addFavorite(ComicModel comic){
+
+    //myFavoriteComics!.add(comic);
+
     if( myFavoriteComics == null){
-      myFavoriteComics = [];
+      //myFavoriteComics = [];
     }
+
 
     if (myFavoriteComics!.contains(comic)){
       return myFavoriteComics;
@@ -42,6 +59,8 @@ class UserModel {
       myFavoriteComics!.add(comic);
       return myFavoriteComics;
     }
+
+
   }
 
   deleteFavorite(String idComic){
@@ -49,13 +68,11 @@ class UserModel {
     List<ComicModel> tempFavorites = [];
 
     for (var comic in myFavoriteComics!) {
-      if (idComic != comic.id) {
+      if (!idComic.contains(comic.id.toString())) {
         tempFavorites.add(comic);
       }
     }
-
     myFavoriteComics = tempFavorites;
-
     return myFavoriteComics;
   }
 

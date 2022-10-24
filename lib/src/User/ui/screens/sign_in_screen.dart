@@ -1,6 +1,7 @@
 import 'package:comic_app/comics_app.dart';
 import 'package:comic_app/src/Comic/ui/screens/home_screen.dart';
 import 'package:comic_app/src/widgets/button_blue.dart';
+import 'package:comic_app/tabs_comics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,9 @@ class _SignInScreen extends State<SignInScreen>{
         if( !snapshot.hasData || snapshot.hasError ){
           return signInGoogleUI();
         } else {
-          return MaterialApp(
+          return TabsComic();
+            /*
+            MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Comics App',
             theme: AppTheme.ligthTheme,
@@ -44,6 +47,8 @@ class _SignInScreen extends State<SignInScreen>{
             routes: AppRoutes.routes,
             onGenerateRoute: AppRoutes.onGenerateRoute,
           );
+
+             */
         }
       },
     );
@@ -84,7 +89,6 @@ class _SignInScreen extends State<SignInScreen>{
                           name: user.user.displayName,
                           photoURL: user.user.photoURL,
                           email: user.user.email,
-                          myFavoriteComics: [],
                       ));
 
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:comic_app/src/Comic/model/models.dart';
 import 'package:comic_app/src/themes/app_theme.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../User/bloc/bloc_user.dart';
 
@@ -57,6 +58,15 @@ class _CustomAppBar extends StatelessWidget {
         '${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}';
 
     return SliverAppBar(
+      actions: [
+        IconButton(
+          onPressed: () {
+            Share.share(comic.urls!.first.url ??
+                'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+          },
+          icon: const Icon(Icons.share_outlined),
+        ),
+      ],
       backgroundColor: AppTheme.primary,
       expandedHeight: 200,
       floating: false,
