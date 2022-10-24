@@ -30,12 +30,10 @@ class CardSwiper extends StatelessWidget {
         itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.4,
         itemBuilder: (_, index) {
-
           final comic = comics[index];
           final urlImage =
-          '${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}';
+              '${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}';
           comic.heroId = 'swiper-${comic.id}';
-
 
           return GestureDetector(
             onTap: () =>
@@ -43,7 +41,7 @@ class CardSwiper extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage('assets/img/no-image.png'),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
                 image: NetworkImage(urlImage),
                 fit: BoxFit.cover,
               ),

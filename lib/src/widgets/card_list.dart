@@ -96,13 +96,12 @@ class _Card extends StatelessWidget {
             leading: Hero(
               tag: comic.id,
               child: FadeInImage(
-                placeholder: const AssetImage('assets/img/no-image.png'),
+                placeholder: const AssetImage('assets/img/no-image.jpg'),
                 image: NetworkImage(urlImage),
                 width: 130,
                 fit: BoxFit.cover,
               ),
             ),
-
             title: Text(
               comic.title.toString(),
               textAlign: TextAlign.center,
@@ -113,10 +112,11 @@ class _Card extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(height: 5,)
+          SizedBox(
+            height: 5,
+          )
         ],
       )),
     );
-
   }
 }

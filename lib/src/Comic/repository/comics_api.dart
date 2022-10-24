@@ -41,6 +41,7 @@ class ComicsAPI {
   getNextComics() async {
     _currentpage ++;
     final jsonData = await _getJsonData(_endPoint, _currentpage);
+    print('current page is now $_currentpage');
     final nextComicsResponse = WarpComicResponse.fromJson(jsonData);
 
     return nextComicsResponse.data.results;

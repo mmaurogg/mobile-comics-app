@@ -1,5 +1,4 @@
-import 'package:comic_app/src/User/model/user.dart';
-import 'package:comic_app/src/widgets/basic_list.dart';
+import 'package:comic_app/src/widgets/alert_notificaction.dart';
 import 'package:flutter/material.dart';
 import '../../../User/bloc/bloc_user.dart';
 import '../widgets/widgets.dart';
@@ -23,14 +22,7 @@ class HomeScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                print('Hola User');
-
-                print(userBloc.idUserActivate);
-                print(userBloc.userActive);
-
-                Navigator.pushNamed(context, 'favorites');
-
-                print('listo');
+                AlertNotification(context, 'En construcción', 'Pronto podrás disfrutar de esta funcionalidad');
               },
               icon: Icon(Icons.search)),
 

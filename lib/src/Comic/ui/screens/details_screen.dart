@@ -8,24 +8,23 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../User/bloc/bloc_user.dart';
 
-
 class DetailsScreen extends StatelessWidget {
-
-  late UserBloc userBloc ;
+  late UserBloc userBloc;
 
   @override
   Widget build(BuildContext context) {
     userBloc = Provider.of<UserBloc>(context);
 
-    final ComicModel comic = ModalRoute.of(context)!.settings.arguments as ComicModel;
+    final ComicModel comic =
+        ModalRoute.of(context)!.settings.arguments as ComicModel;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar( comic ),
+          _CustomAppBar(comic),
           SliverList(
             delegate: SliverChildListDelegate([
-              _PosterAndTitle( comic ),
+              _PosterAndTitle(comic),
 
               ButtonGeneric(
                 buttonText: 'Agregar a favoritos',
@@ -33,10 +32,9 @@ class DetailsScreen extends StatelessWidget {
                 onTap: () {
                   userBloc.addFavorite(comic);
                 },
-
               ),
 
-              _Overview( comic ),
+              _Overview(comic),
               //CardSlider(),
             ]),
           )
@@ -53,7 +51,6 @@ class _CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final urlImage =
         '${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}';
 
@@ -61,7 +58,7 @@ class _CustomAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Share.share(comic.urls!.first.url ??
+            Share.share(comic.urls.first.url ??
                 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
           },
           icon: const Icon(Icons.share_outlined),
@@ -117,7 +114,7 @@ class _PosterAndTitle extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: const AssetImage('assets/img/no-image.png'),
+                placeholder: const AssetImage('assets/img/no-image.jpg'),
                 image: NetworkImage(urlImage),
                 height: 150,
               ),
@@ -125,7 +122,7 @@ class _PosterAndTitle extends StatelessWidget {
           ),
           const SizedBox(width: 20),
           ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: size.width - 190),
+            constraints: BoxConstraints(maxWidth: size.width - 200),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -148,15 +145,15 @@ class _PosterAndTitle extends StatelessWidget {
                       size: 20,
                       color: AppTheme.primary,
                     ),
-                    SizedBox(width: 10,),
-
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text(
                       comic.pageCount.toString(),
                       style: textTheme.caption,
                     )
                   ],
                 ),
-
               ],
             ),
           ),
@@ -174,20 +171,21 @@ class _Overview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Column(
-        children: [
-          Text(
-            'Description',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 20,),
-          Text(
-            comic.description.toString(),
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ],
-      )
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Column(
+          children: [
+            Text(
+              'Description',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              comic.description.toString(),
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ],
+        ));
   }
 }

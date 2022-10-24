@@ -1,7 +1,9 @@
 import 'package:comic_app/src/Comic/model/comic.dart';
+import 'package:comic_app/src/User/repository/local_storage_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../model/user.dart';
 import '../repository/cloud_firebase_repository.dart';
@@ -11,11 +13,18 @@ import '../repository/fire_auth_repository.dart';
 class UserBloc extends ChangeNotifier {
   final _authRepository = AuthRepository();
   final _cloudFirestoreRepository = CloudFirestoreRepository();
+  //final _localStorageRepository = LocalStorageRepository();
+
 
   Stream<User?> streeamFirebase = FirebaseAuth.instance.authStateChanges();
 
   String idUserActivate = '';
   UserModel? userActive;
+
+
+  UserBloc(){
+    //idUserActivate = _localStorageRepository.readOfStorage('idUserActivate');
+  }
 
   Stream<User?> get authStatus => streeamFirebase;
 
@@ -25,6 +34,7 @@ class UserBloc extends ChangeNotifier {
   Future<UserCredential> signIn() => _authRepository.signInFirebase()
       .then((userResponse) {
         idUserActivate = userResponse.user!.uid;
+        //_localStorageRepository.addToStorage('idUserActivate', idUserActivate);
         return userResponse;
       });
 
@@ -32,6 +42,7 @@ class UserBloc extends ChangeNotifier {
   signOut() {
     idUserActivate = '';
     userActive = null;
+    //_localStorageRepository.deleteOfStorage('idUserActivate');
     _authRepository.signOut();
   }
 
@@ -77,12 +88,6 @@ class UserBloc extends ChangeNotifier {
 
   }
 
-  // 6. Compartir comic
-
-
-
-
-
   // cargar usuario
   getUserData( String uid  ) => _cloudFirestoreRepository.getUserDataFirestore(uid)
       .then((userResponse) {
@@ -90,6 +95,7 @@ class UserBloc extends ChangeNotifier {
        userActive = userTemp;
         return userResponse;
       });
+
 
 
 

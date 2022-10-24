@@ -8,8 +8,7 @@ class BasicList extends StatefulWidget {
   final String? title;
   final dynamic? function;
 
-  const BasicList(
-      {super.key, required this.comics, this.title, this.function});
+  const BasicList({super.key, required this.comics, this.title, this.function});
 
   @override
   State<BasicList> createState() => _BasicListState();
@@ -21,7 +20,6 @@ class _BasicListState extends State<BasicList> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -53,19 +51,17 @@ class _BasicListState extends State<BasicList> {
               controller: scrollController,
               scrollDirection: Axis.vertical,
               itemCount: widget.comics.length,
-              itemBuilder: (_, index) =>
-                  Dismissible(
-                    key: Key(widget.comics[index].id.toString()),
-                    onDismissed: widget.function,
-                    child: _ComicPoster(
+              itemBuilder: (_, index) => Dismissible(
+                key: Key(widget.comics[index].id.toString()),
+                onDismissed: widget.function,
+                child: _ComicPoster(
                     comic: widget.comics[index],
                     heroId:
                         '${widget.title.toString()}-$index-${widget.comics[index].id}'),
-                  ),
+              ),
               separatorBuilder: (_, __) => const Divider(),
             ),
           ),
-
         ],
       ),
     );
@@ -86,52 +82,48 @@ class _ComicPoster extends StatelessWidget {
         '${comic.thumbnail.path}/portrait_xlarge.${comic.thumbnail.extension}';
 
     return Container(
-          width: size.width,
-          child: Row(
-            children: <Widget>[
+      width: size.width,
+      child: Row(
+        children: <Widget>[
           Hero(
-          tag: comic.id,
+            tag: comic.id,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                    placeholder: const AssetImage('assets/img/no-image.png'),
-                    image: NetworkImage(urlImage),
-                    width: 130,
-                    height: 190,
-                    fit: BoxFit.cover,
+                placeholder: const AssetImage('assets/img/no-image.jpg'),
+                image: NetworkImage(urlImage),
+                width: 130,
+                height: 190,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            width: size.width - 200,
+            child: Column(
+              children: [
+                Text(
+                  comic.title.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
                   ),
                 ),
-              ),
-
-              const SizedBox(
-                width: 10,
-              ),
-
-              Container(
-                width: size.width - 200,
-                child: Column(
-                   children: [
-                     Text(
-                       comic.title.toString(),
-                       textAlign: TextAlign.center,
-                       style: const TextStyle(
-                         fontSize: 20,
-                       ),
-                     ),
-
-                     const SizedBox(height: 8,),
-
-                     Text(
-                       comic.prices.toString(),
-                       textAlign: TextAlign.center,
-                     ),
-                   ],
+                const SizedBox(
+                  height: 8,
                 ),
-              ),
-
-
-            ],
+                Text(
+                  comic.prices.toString(),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
-        );
+        ],
+      ),
+    );
   }
 }
