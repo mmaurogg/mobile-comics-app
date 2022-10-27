@@ -46,13 +46,6 @@ class UserModel {
 
   addFavorite(ComicModel comic){
 
-    //myFavoriteComics!.add(comic);
-
-    if( myFavoriteComics == null){
-      //myFavoriteComics = [];
-    }
-
-
     if (myFavoriteComics!.contains(comic)){
       return myFavoriteComics;
     } else {

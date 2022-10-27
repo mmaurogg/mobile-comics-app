@@ -3,7 +3,6 @@ import 'package:comic_app/src/User/repository/local_storage_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../model/user.dart';
 import '../repository/cloud_firebase_repository.dart';
@@ -30,7 +29,7 @@ class UserBloc extends ChangeNotifier {
 
   //Casos de uso
 
-  //1. SignIn a la palicación con Google
+  //1. SignIn a la aplicación con Google
   Future<UserCredential> signIn() => _authRepository.signInFirebase()
       .then((userResponse) {
         idUserActivate = userResponse.user!.uid;
@@ -47,9 +46,8 @@ class UserBloc extends ChangeNotifier {
   }
 
   //3. Registrar info del usuario en BD
-  updateUserData(UserModel user) {
-    return _cloudFirestoreRepository.updateUserDataFirestore(user);
-  }
+  updateUserData(UserModel user) => _cloudFirestoreRepository.updateUserDataFirestore(user);
+
 
   //4. Agregar comic a favorito
   addFavorite( ComicModel comic){
@@ -59,12 +57,6 @@ class UserBloc extends ChangeNotifier {
     userActive!.addFavorite(comic);
     updateUserData(userActive!);
     notifyListeners();
-
-    //TODO: borrar
-    userActive!.myFavoriteComics!.forEach((element) {
-      print(element.title);
-    },);
-
 
   }
 

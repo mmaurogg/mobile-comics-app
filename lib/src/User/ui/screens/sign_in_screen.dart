@@ -34,17 +34,6 @@ class _SignInScreen extends State<SignInScreen>{
           return signInGoogleUI();
         } else {
           return TabsComic();
-            /*
-            MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Comics App',
-            theme: AppTheme.ligthTheme,
-            initialRoute: AppRoutes.initialRoute,
-            routes: AppRoutes.routes,
-            onGenerateRoute: AppRoutes.onGenerateRoute,
-          );
-
-             */
         }
       },
     );
@@ -76,7 +65,6 @@ class _SignInScreen extends State<SignInScreen>{
                     //userBloc.signOut();
                     print('sig in');
                     userBloc.signIn().then( (dynamic user) {
-                      print('Proceso asincrono');
 
                       userBloc.getUserData(userBloc.idUserActivate);
 
@@ -85,6 +73,7 @@ class _SignInScreen extends State<SignInScreen>{
                           name: user.user.displayName,
                           photoURL: user.user.photoURL,
                           email: user.user.email,
+                          myFavoriteComics: []
                       ));
 
 
