@@ -8,9 +8,6 @@ class TabsComic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return ChangeNotifierProvider(
       create: (_) => _NavegacionModel(),
       child: Scaffold(
@@ -22,10 +19,8 @@ class TabsComic extends StatelessWidget {
 }
 
 class _Navegacion extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final navegacionModel = Provider.of<_NavegacionModel>(context);
 
     return BottomNavigationBar(
@@ -47,25 +42,18 @@ class _Navegacion extends StatelessWidget {
 }
 
 class Paginas extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final navegacionModel = Provider.of<_NavegacionModel>(context);
 
     return PageView(
       controller: navegacionModel.pageController,
       //physics: BouncingScrollPhysics(),
       physics: const NeverScrollableScrollPhysics(),
-      children: <Widget> [
-        HomeScreen(),
-        FavoritesScreen(),
-        DetailsScreen()
-      ],
+      children: <Widget>[HomeScreen(), FavoritesScreen(), DetailsScreen()],
     );
   }
 }
-
 
 class _NavegacionModel with ChangeNotifier {
   int _paginaActual = 0;
@@ -73,12 +61,12 @@ class _NavegacionModel with ChangeNotifier {
 
   int get paginaActual => _paginaActual;
 
-  set paginaActual( int valor ) {
+  set paginaActual(int valor) {
     _paginaActual = valor;
-    _pageController.animateToPage(valor, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+    _pageController.animateToPage(valor,
+        duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
     notifyListeners();
   }
 
   PageController get pageController => _pageController;
-
 }

@@ -23,6 +23,7 @@ class UserModel {
 
   String toJson() => json.encode(toMap());
 
+  // Deserializar el Json: Transforma el Json a un Map
   factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
         uid: json["uid"],
         name: json["name"],

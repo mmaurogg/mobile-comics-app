@@ -8,20 +8,19 @@ import '../model/user.dart';
 import '../repository/cloud_firebase_repository.dart';
 import '../repository/fire_auth_repository.dart';
 
+import 'package:mockito/mockito.dart';
 
 class UserBloc extends ChangeNotifier {
   final _authRepository = AuthRepository();
   final _cloudFirestoreRepository = CloudFirestoreRepository();
   //final _localStorageRepository = LocalStorageRepository();
 
-
   Stream<User?> streeamFirebase = FirebaseAuth.instance.authStateChanges();
 
   String idUserActivate = '';
   UserModel? userActive;
 
-
-  UserBloc(){
+  UserBloc() {
     //idUserActivate = _localStorageRepository.readOfStorage('idUserActivate');
   }
 
@@ -30,8 +29,9 @@ class UserBloc extends ChangeNotifier {
   //Casos de uso
 
   //1. SignIn a la aplicación con Google
-  Future<UserCredential> signIn() => _authRepository.signInFirebase()
-      .then((userResponse) {
+  Future<UserCredential> signIn() =>
+      _authRepository.signInFirebase().then((userResponse) {
+        print(userResponse);
         idUserActivate = userResponse.user!.uid;
         //_localStorageRepository.addToStorage('idUserActivate', idUserActivate);
         return userResponse;
@@ -46,50 +46,43 @@ class UserBloc extends ChangeNotifier {
   }
 
   //3. Registrar info del usuario en BD
-  updateUserData(UserModel user) => _cloudFirestoreRepository.updateUserDataFirestore(user);
-
+  updateUserData(UserModel user) =>
+      _cloudFirestoreRepository.updateUserDataFirestore(user);
 
   //4. Agregar comic a favorito
-  addFavorite( ComicModel comic){
-    if(userActive == null){
+  addFavorite(ComicModel comic) {
+    if (userActive == null) {
       getUserData(idUserActivate);
     }
     userActive!.addFavorite(comic);
     updateUserData(userActive!);
     notifyListeners();
-
   }
 
   //5. Listar favoritos
   get favoriteComics {
-    if(userActive == null){
+    if (userActive == null) {
       getUserData(idUserActivate);
     }
     return userActive!.favoriteComics;
   }
 
   //6. Eliminar de favotiros
-  deleteFavorite( String idComic ){
-    if(userActive == null){
+  deleteFavorite(String idComic) {
+    if (userActive == null) {
       getUserData(idUserActivate);
     }
     print('Eliminando favorito');
     userActive!.deleteFavorite(idComic);
     updateUserData(userActive!);
     notifyListeners();
-
-
   }
 
   // cargar usuario
-  getUserData( String uid  ) => _cloudFirestoreRepository.getUserDataFirestore(uid)
-      .then((userResponse) {
-       UserModel userTemp = UserModel.fromMap(userResponse);
-       userActive = userTemp;
+  getUserData(String uid) =>
+      _cloudFirestoreRepository.getUserDataFirestore(uid).then((userResponse) {
+        UserModel userTemp = UserModel.fromMap(userResponse);
+        userActive = userTemp;
         return userResponse;
       });
-
-
-
-
 }

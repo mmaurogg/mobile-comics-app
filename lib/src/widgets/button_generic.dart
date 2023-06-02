@@ -23,7 +23,6 @@ class ButtonGeneric extends StatelessWidget {
         ),
         height: 50.0,
         width: 180.0,
-        //
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
             color: color,

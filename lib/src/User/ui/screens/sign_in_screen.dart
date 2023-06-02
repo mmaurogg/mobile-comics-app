@@ -14,23 +14,21 @@ class SignInScreen extends StatefulWidget {
   }
 }
 
-class _SignInScreen extends State<SignInScreen>{
-
+class _SignInScreen extends State<SignInScreen> {
   late UserBloc userBloc;
 
   @override
   Widget build(BuildContext context) {
-
     userBloc = Provider.of<UserBloc>(context);
 
     return _handleCurrentSession();
   }
 
-  Widget _handleCurrentSession(){
+  Widget _handleCurrentSession() {
     return StreamBuilder(
       stream: userBloc.authStatus,
       builder: (context, snapshot) {
-        if( !snapshot.hasData || snapshot.hasError ){
+        if (!snapshot.hasData || snapshot.hasError) {
           return signInGoogleUI();
         } else {
           return TabsComic();
@@ -39,8 +37,7 @@ class _SignInScreen extends State<SignInScreen>{
     );
   }
 
-  Widget signInGoogleUI(){
-
+  Widget signInGoogleUI() {
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -49,23 +46,21 @@ class _SignInScreen extends State<SignInScreen>{
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text("Welcome to Comics App",
+                const Text(
+                  "Welcome to Comics App",
                   style: TextStyle(
                       fontSize: 37.0,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold
-                  ),
+                      fontWeight: FontWeight.bold),
                 ),
-
                 ButtonBlue(
                   text: "Login with Gmail",
                   width: 300.0,
                   height: 50.0,
-                  onPressed: (){
+                  onPressed: () {
                     //userBloc.signOut();
                     print('sig in');
-                    userBloc.signIn().then( (dynamic user) {
-
+                    userBloc.signIn().then((dynamic user) {
                       userBloc.getUserData(userBloc.idUserActivate);
 
                       userBloc.updateUserData(UserModel(
@@ -73,21 +68,13 @@ class _SignInScreen extends State<SignInScreen>{
                           name: user.user.displayName,
                           photoURL: user.user.photoURL,
                           email: user.user.email,
-                          myFavoriteComics: []
-                      ));
-
-
+                          myFavoriteComics: []));
                     });
-
                   },
                 )
-
-              ]
-          )
+              ])
         ],
       ),
     );
   }
-
-
 }

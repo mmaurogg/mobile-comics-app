@@ -4,8 +4,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:ui' as _i7;
 
-import 'package:comic_app/src/User/repository/fire_auth_repository.dart' as _i3;
+import 'package:comic_app/src/Comic/model/comic.dart' as _i6;
+import 'package:comic_app/src/User/bloc/bloc_user.dart' as _i3;
+import 'package:comic_app/src/User/model/user.dart' as _i5;
 import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -31,30 +34,126 @@ class _FakeUserCredential_0 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [AuthRepository].
+/// A class which mocks [UserBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
+class MockUserBloc extends _i1.Mock implements _i3.UserBloc {
+  MockUserBloc() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
-  _i4.Future<_i2.UserCredential> signInFirebase() => (super.noSuchMethod(
+  _i4.Stream<_i2.User?> get streeamFirebase => (super.noSuchMethod(
+        Invocation.getter(#streeamFirebase),
+        returnValue: _i4.Stream<_i2.User?>.empty(),
+      ) as _i4.Stream<_i2.User?>);
+  @override
+  set streeamFirebase(_i4.Stream<_i2.User?>? _streeamFirebase) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #streeamFirebase,
+          _streeamFirebase,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get idUserActivate => (super.noSuchMethod(
+        Invocation.getter(#idUserActivate),
+        returnValue: '',
+      ) as String);
+  @override
+  set idUserActivate(String? _idUserActivate) => super.noSuchMethod(
+        Invocation.setter(
+          #idUserActivate,
+          _idUserActivate,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  set userActive(_i5.UserModel? _userActive) => super.noSuchMethod(
+        Invocation.setter(
+          #userActive,
+          _userActive,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i4.Stream<_i2.User?> get authStatus => (super.noSuchMethod(
+        Invocation.getter(#authStatus),
+        returnValue: _i4.Stream<_i2.User?>.empty(),
+      ) as _i4.Stream<_i2.User?>);
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+  @override
+  _i4.Future<_i2.UserCredential> signIn() => (super.noSuchMethod(
         Invocation.method(
-          #signInFirebase,
+          #signIn,
           [],
         ),
         returnValue: _i4.Future<_i2.UserCredential>.value(_FakeUserCredential_0(
           this,
           Invocation.method(
-            #signInFirebase,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.UserCredential>.value(_FakeUserCredential_0(
-          this,
-          Invocation.method(
-            #signInFirebase,
+            #signIn,
             [],
           ),
         )),
       ) as _i4.Future<_i2.UserCredential>);
+  @override
+  dynamic updateUserData(_i5.UserModel? user) =>
+      super.noSuchMethod(Invocation.method(
+        #updateUserData,
+        [user],
+      ));
+  @override
+  dynamic addFavorite(_i6.ComicModel? comic) =>
+      super.noSuchMethod(Invocation.method(
+        #addFavorite,
+        [comic],
+      ));
+  @override
+  dynamic deleteFavorite(String? idComic) =>
+      super.noSuchMethod(Invocation.method(
+        #deleteFavorite,
+        [idComic],
+      ));
+  @override
+  dynamic getUserData(String? uid) => super.noSuchMethod(Invocation.method(
+        #getUserData,
+        [uid],
+      ));
+  @override
+  void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
